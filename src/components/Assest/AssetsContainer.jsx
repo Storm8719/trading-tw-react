@@ -1,18 +1,19 @@
 import React from "react";
 import Assets from "./Assets";
 import {connect} from "react-redux";
-import {setCurrentAsset} from "../../redux/assets-reducer";
+import {subscribeAcceptData, setCurrentAsset, unsubscribeAcceptData} from "../../redux/assets-reducer";
 
 class AssetsContainer extends React.Component{
     render() {
-        return <Assets />
+        // debugger;
+        return <Assets {...this.props} />
     }
 }
 
 let mapStateToProps = (state) => ({
-    assets : state.assets,
-    currentAsset: state.currentAssetId,
+    assets : state.assets.assets,
+    currentAsset: state.assets.currentAssetId,
 });
 
 
-export default connect(mapStateToProps, {setCurrentAsset})(AssetsContainer);
+export default connect(mapStateToProps, {setCurrentAsset, subscribeAcceptData, unsubscribeAcceptData})(AssetsContainer);
