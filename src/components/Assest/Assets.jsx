@@ -1,6 +1,6 @@
 import React from "react";
 import {setCurrentAssetAll} from "../../redux/assets-reducer";
-// import {subscribeAcceptData, setCurrentAsset} from "../../redux/assets-reducer";
+import {subscribeAcceptData, setCurrentAsset} from "../../redux/assets-reducer";
 
 const Assets = (props) => {
     // let currentAsset = props.assets.filter(e => e.id === props.currentAsset)[0];
@@ -10,8 +10,8 @@ const Assets = (props) => {
             <div className={'asset-'+e.status} onClick={() => props.setCurrentAssetAll(e.id)} key={e.id}>{e.name} {e.salePrice} {e.buyPrice}</div>)
     return <div>
         {assetsList}
-        {/*<button onClick={props.subscribeAcceptData}>start</button>*/}
-        {/*<button onClick={props.unsubscribeAcceptData}>stop</button>*/}
+        <button onClick={props.subscribeAcceptData}>start</button>
+        <button onClick={props.unsubscribeAcceptData}>stop</button>
     </div>
 }
 

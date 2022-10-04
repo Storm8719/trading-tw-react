@@ -4,6 +4,8 @@ class WebsocketAPI{
     dataSendInterval = false;
     dataChangingInterval = false;
     currentSubscribedAssetChangingInterval = false;
+    tempPrice = 2000;
+
     assetsList = [
         {id: 1, name: 'AUD/USD', salePrice: 22, buyPrice: 31, status:'plain'},
         {id: 2, name: 'USDT/USD', salePrice: 32, buyPrice: 34, status:'plain'},
@@ -45,9 +47,9 @@ class WebsocketAPI{
                 // date.getMonth();
                 // date.getHours(), getMinutes(), getSeconds(), getMilliseconds()
 
-                callbackForData({time: +date , value: Math.floor(Math.random() * 10)});
+                callbackForData({time: +date , value: this.getNewPriceDependsOnOldWithMaxStep(this.tempPrice, 20)});
             },
-            1000
+            100
         )
     }
     unsubscribeOnAssetData(assetId = null){
@@ -57,13 +59,16 @@ class WebsocketAPI{
 
         return new Promise((resolve,reject) => {
             let dataArr = [];
-            for(let i=10; i>0; i-- ){
+            for(let i=1000; i>0; i-- ){
                 let date = new Date();
                 date.setSeconds(date.getSeconds() - i);
                 // console.log(date.getSeconds())
-                dataArr.push({time: +date , value: Math.floor(Math.random() * 10)});
+                dataArr.push({time: +date , value: this.getNewPriceDependsOnOldWithMaxStep(this.tempPrice, 20)});
             }
-            resolve(dataArr);
+            setTimeout(()=>{
+                resolve(dataArr);
+            }, 1);
+
         });
 
         // return dataArr;
@@ -88,6 +93,17 @@ class WebsocketAPI{
             })
         },2000);
     }
+
+    getNewPriceDependsOnOldWithMaxStep(oldPrice, maxStep){
+        if(Math.floor(Math.random() * 2)){
+            oldPrice += Math.floor(Math.random() * maxStep);
+        }else{
+            oldPrice -= Math.floor(Math.random() * maxStep);
+        }
+        this.tempPrice = oldPrice;
+        return oldPrice;
+    }
+
 
 }
 export default WebsocketAPI;

@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { createChart, ColorType } from 'lightweight-charts';
 import WebsocketAPI from "../../api/ws";
-import {updateCurrentAssets} from "../../redux/assets-reducer";
-// import {setCurrentAsset, subscribeAcceptData} from "../../redux/chart-reducer";
+
 
 export const Chart = (props) => {
     console.log(props);
@@ -19,6 +18,9 @@ export const Chart = (props) => {
     } = props;
     const chartContainerRef = useRef();
 
+    const [state, setState] = useState({initialized:false});
+
+
     useEffect(
         () => {
             const handleResize = () => {
@@ -30,16 +32,58 @@ export const Chart = (props) => {
                     background: { type: ColorType.Solid, color: backgroundColor },
                     textColor,
                 },
+                grid: {
+                    vertLines: {
+                        color: 'rgba(42, 46, 57, 0.2)',
+                    },
+                    horzLines: {
+                        color: 'rgba(42, 46, 57, 0.2)',
+                    },
+                },
+                crosshair: {
+                    vertLine: {
+                        width: 5,
+                        color: 'rgba(224, 227, 235, 0.1)',
+                        style: 0,
+                    },
+                    horzLine: {
+                        visible: true,
+                        labelVisible: true,
+                        width: 5,
+                        color: 'rgba(224, 227, 235, 0.1)',
+                        style: 0,
+                    },
+
+                },
+                rightPriceScale: {
+                    scaleMargins: {
+                        top: 0.3,
+                        bottom: 0.25,
+                    },
+                },
                 width: chartContainerRef.current.clientWidth,
-                height: 300,
+                height: 600,
             });
             console.log('redraw TV chart');
             chart.timeScale().fitContent();
 
-            const newSeries = chart.addAreaSeries({ lineColor, topColor: areaTopColor, bottomColor: areaBottomColor });
-            newSeries.setData(data);
+            const newSeries = chart.addAreaSeries({
+                topColor: 'rgba(38, 198, 218, 0.56)',
+                bottomColor: 'rgba(38, 198, 218, 0.04)',
+                lineColor: 'rgba(38, 198, 218, 1)',
+                lineWidth: 2,
+                crossHairMarkerVisible: false,
+            });
 
             const ws = new WebsocketAPI;
+
+            if(!state.initialized){
+                props.setCurrentAssetAll(currentAssetId);
+                setState({initialized:true});
+            }
+            newSeries.setData(data);
+
+
             ws.subscribeOnAssetData(currentAssetId,(data) => {
                 newSeries.update(data);
             });
