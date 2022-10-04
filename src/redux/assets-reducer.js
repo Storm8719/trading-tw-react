@@ -1,7 +1,8 @@
 import WebsocketAPI from "../api/ws";
+import {setCurrentChartData} from "./chart-reducer";
 
-const SET_CURRENT_ASSET = 'SET_CURRENT_ASSET';
-const UPDATE_CURRENT_ASSETS = 'UPDATE_CURRENT_ASSETS';
+const SET_CURRENT_ASSET = 'ASSETS_REDUCER_SET_CURRENT_ASSET';
+const UPDATE_CURRENT_ASSETS = 'ASSETS_REDUCER_UPDATE_CURRENT_ASSETS';
 
 let initialState = {
     assets: [
@@ -19,6 +20,7 @@ let initialState = {
 const assetsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_CURRENT_ASSET:
+            console.log(state);
             return {
                 ...state,
                 currentAssetId: action.assetId
@@ -33,20 +35,27 @@ const assetsReducer = (state = initialState, action) => {
     }
 }
 
-export const setCurrentAsset = (assetId) => ({type: SET_CURRENT_ASSET, assetId:assetId});
+export const setCurrentAssetId = (assetId) => ({type: SET_CURRENT_ASSET, assetId:assetId});
 export const updateCurrentAssets = (assetsArr) => ({type: UPDATE_CURRENT_ASSETS, assets:assetsArr});
 
-export const subscribeAcceptData = () => (dispatch) => {
-    const ws = new WebsocketAPI;
-    ws.subscribeOnAssets((assetArr) => {
-        // dispatch(setCurrentAsset(assetId));
-        dispatch(updateCurrentAssets(assetArr));
-    })
-}
 
-export const unsubscribeAcceptData = () => {
+export const setCurrentAssetAll = (assetId) => async (dispatch) => {
     const ws = new WebsocketAPI;
-    ws.unsubscribeFromAssets();
+    const initialData = await ws.getInitialDataForAsset();
+    dispatch(setCurrentChartData(initialData));
+    dispatch(setCurrentAssetId(assetId));
 }
+// export const subscribeAcceptData = () => (dispatch) => {
+//     const ws = new WebsocketAPI;
+//     ws.subscribeOnAssets((assetArr) => {
+//         // dispatch(setCurrentAsset(assetId));
+//         dispatch(updateCurrentAssets(assetArr));
+//     })
+// }
+//
+// export const unsubscribeAcceptData = () => {
+//     const ws = new WebsocketAPI;
+//     ws.unsubscribeFromAssets();
+// }
 
 export default assetsReducer;

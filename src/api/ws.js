@@ -3,6 +3,7 @@ class WebsocketAPI{
     isSubscribe = false;
     dataSendInterval = false;
     dataChangingInterval = false;
+    currentSubscribedAssetChangingInterval = false;
     assetsList = [
         {id: 1, name: 'AUD/USD', salePrice: 22, buyPrice: 31, status:'plain'},
         {id: 2, name: 'USDT/USD', salePrice: 32, buyPrice: 34, status:'plain'},
@@ -34,6 +35,38 @@ class WebsocketAPI{
     unsubscribeFromAssets(){
         if(this.dataSendInterval){clearInterval(this.dataSendInterval)}
         this.isSubscribe = false;
+    }
+
+    subscribeOnAssetData(assetId, callbackForData){
+        this.currentSubscribedAssetChangingInterval = setInterval(
+            () =>{
+                let date = new Date();
+                // date.getFullYear();
+                // date.getMonth();
+                // date.getHours(), getMinutes(), getSeconds(), getMilliseconds()
+
+                callbackForData({time: +date , value: Math.floor(Math.random() * 10)});
+            },
+            1000
+        )
+    }
+    unsubscribeOnAssetData(assetId = null){
+        if(this.currentSubscribedAssetChangingInterval){clearInterval(this.currentSubscribedAssetChangingInterval)}
+    }
+    getInitialDataForAsset(id = 1){
+
+        return new Promise((resolve,reject) => {
+            let dataArr = [];
+            for(let i=10; i>0; i-- ){
+                let date = new Date();
+                date.setSeconds(date.getSeconds() - i);
+                // console.log(date.getSeconds())
+                dataArr.push({time: +date , value: Math.floor(Math.random() * 10)});
+            }
+            resolve(dataArr);
+        });
+
+        // return dataArr;
     }
     startChangingAssetsPrices(){
         this.dataChangingInterval = setInterval(()=>{
