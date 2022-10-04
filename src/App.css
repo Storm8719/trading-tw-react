@@ -41,4 +41,28 @@
   background: #282c34;
   min-height: 100vh;
   color: white;
+  /*display: flex;*/
+  width: 100%;
+}
+
+.asset-up{
+  color: green;
+}
+.asset-down{
+  color: red;
+}
+.asset-plain{
+  color:white;
+}
+
+.assets-container{
+  min-width: 250px;
+  display: block;
+  position: relative;
+}
+
+.chart-container{
+  width: calc(100% - 250px);
+  display: block;
+  position: relative;
 }

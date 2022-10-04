@@ -5,9 +5,10 @@ const Assets = (props) => {
     // let currentAsset = props.assets.filter(e => e.id === props.currentAsset)[0];
     let assetsList = props.assets.map(e =>
         e.id === props.currentAsset ?
-            <div key={e.id}><b>{e.name} {e.salePrice} {e.buyPrice}</b></div> :
-            <div onClick={() => props.setCurrentAsset(e.id)} key={e.id}>{e.name} {e.salePrice} {e.buyPrice}</div>)
-    return <div>
+            <div className={'asset-'+e.status} key={e.id}><b>{e.name} {e.salePrice} {e.buyPrice}</b></div> :
+            <div className={'asset-'+e.status} onClick={() => props.setCurrentAsset(e.id)} key={e.id}>{e.name} {e.salePrice} {e.buyPrice}</div>)
+
+    return <div className="assets-container">
         {assetsList}
         <button onClick={props.subscribeAcceptData}>start</button>
         <button onClick={props.unsubscribeAcceptData}>stop</button>

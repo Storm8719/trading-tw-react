@@ -12,7 +12,7 @@ let initialState = {
         { time: '2018-12-28', value: 25.46 },
         { time: '2018-12-29', value: 23.92 },
         { time: '2018-12-30', value: 22.68 },
-        { time: '2020-12-31', value: 22.67 },
+        { time: '2018-12-31', value: 22.67 },
     ],
     currentAssetName:"AUD/USD",
     visualOptions:{

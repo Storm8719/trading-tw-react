@@ -1,6 +1,7 @@
 import WebsocketAPI from "../api/ws";
 
 const SET_CURRENT_ASSET = 'SET_CURRENT_ASSET';
+const UPDATE_CURRENT_ASSETS = 'UPDATE_CURRENT_ASSETS';
 
 let initialState = {
     assets: [
@@ -22,23 +23,30 @@ const assetsReducer = (state = initialState, action) => {
                 ...state,
                 currentAssetId: action.assetId
             };
+        case UPDATE_CURRENT_ASSETS:
+            return {
+                ...state,
+                assets: [...action.assets]
+            }
         default:
             return state;
     }
 }
 
 export const setCurrentAsset = (assetId) => ({type: SET_CURRENT_ASSET, assetId:assetId});
+export const updateCurrentAssets = (assetsArr) => ({type: UPDATE_CURRENT_ASSETS, assets:assetsArr});
 
 export const subscribeAcceptData = () => (dispatch) => {
     const ws = new WebsocketAPI;
-    ws.subscribe((assetId) => {
-        dispatch(setCurrentAsset(assetId))
+    ws.subscribeOnAssets((assetArr) => {
+        // dispatch(setCurrentAsset(assetId));
+        dispatch(updateCurrentAssets(assetArr));
     })
 }
 
 export const unsubscribeAcceptData = () => {
     const ws = new WebsocketAPI;
-    ws.unsubscribe();
+    ws.unsubscribeFromAssets();
 }
 
 export default assetsReducer;
