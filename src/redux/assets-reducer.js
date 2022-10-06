@@ -40,22 +40,19 @@ export const updateCurrentAssets = (assetsArr) => ({type: UPDATE_CURRENT_ASSETS,
 
 
 export const setCurrentAssetAll = (assetId) => async (dispatch) => {
-    const ws = new WebsocketAPI;
-    const initialData = await ws.getInitialDataForAsset();
+    const initialData = await (new WebsocketAPI()).getInitialDataForAsset();
     dispatch(setCurrentChartData(initialData));
     dispatch(setCurrentAssetId(assetId));
 }
 export const subscribeAcceptData = () => (dispatch) => {
-    const ws = new WebsocketAPI;
-    ws.subscribeOnAssets((assetArr) => {
+    (new WebsocketAPI()).subscribeOnAssets((assetArr) => {
         // dispatch(setCurrentAsset(assetId));
         dispatch(updateCurrentAssets(assetArr));
     })
 }
 
-export const unsubscribeAcceptData = () => {
-    const ws = new WebsocketAPI;
-    ws.unsubscribeFromAssets();
+export const unsubscribeAcceptData = () => (dispatch) =>  {
+    (new WebsocketAPI()).unsubscribeFromAssets();
 }
 
 export default assetsReducer;

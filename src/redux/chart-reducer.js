@@ -2,6 +2,8 @@
 // import {updateCurrentAssets} from "./assets-reducer";
 
 // const SET_CURRENT_ASSET = 'CHART_REDUCER_SET_CURRENT_ASSET';
+import WebsocketAPI from "../api/ws";
+
 const SET_CURRENT_CHART_DATA = 'SET_CURRENT_CHART_DATA';
 // const ADD_NEW_DATA = "CHART_REDUCER_ADD_NEW_DATA";
 
@@ -53,6 +55,10 @@ const chartReducer = (state = initialState, action) => {
 
 export const setCurrentChartData = (data) => ({type:SET_CURRENT_CHART_DATA, data:data})
 // export const addNewData = (data) => ({type:ADD_NEW_DATA, data:data})
+
+export const unsubscribeOnAssetData = (assetId) => (dispatch) =>{
+    (new WebsocketAPI()).unsubscribeOnAssetData(assetId);
+}
 
 // export const subscribeAcceptData = (assetId = 1) => (dispatch) => {
 //     const ws = new WebsocketAPI;

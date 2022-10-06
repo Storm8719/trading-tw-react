@@ -49,7 +49,7 @@ class WebsocketAPI{
 
                 callbackForData({time: +date , value: this.getNewPriceDependsOnOldWithMaxStep(this.tempPrice, 20)});
             },
-            100
+            300
         )
     }
     unsubscribeOnAssetData(assetId = null){

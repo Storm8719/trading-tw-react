@@ -1,6 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { createChart, ColorType } from 'lightweight-charts';
 import WebsocketAPI from "../../api/ws";
+import {unsubscribeAcceptData} from "../../redux/assets-reducer";
+import {unsubscribeOnAssetData} from "../../redux/chart-reducer";
 
 
 export const Chart = (props) => {
@@ -62,7 +64,7 @@ export const Chart = (props) => {
                     },
                 },
                 width: chartContainerRef.current.clientWidth,
-                height: 600,
+                height: 400,
             });
             console.log('redraw TV chart');
             chart.timeScale().fitContent();
@@ -75,7 +77,7 @@ export const Chart = (props) => {
                 crossHairMarkerVisible: false,
             });
 
-            const ws = new WebsocketAPI;
+            const ws = new WebsocketAPI();
 
             if(!state.initialized){
                 props.setCurrentAssetAll(currentAssetId);
@@ -105,6 +107,7 @@ export const Chart = (props) => {
             <div
                 ref={chartContainerRef}
             />
+            <button onClick={props.unsubscribeOnAssetData}>Unsubscribe</button>
         </>
     );
 };

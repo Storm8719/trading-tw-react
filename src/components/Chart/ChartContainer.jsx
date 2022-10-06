@@ -2,6 +2,7 @@ import React from "react";
 import Chart from "./Chart";
 import {connect} from "react-redux";
 import {setCurrentAssetAll} from "../../redux/assets-reducer";
+import {unsubscribeOnAssetData} from "../../redux/chart-reducer";
 
 class ChartContainer extends React.Component{
 
@@ -18,4 +19,4 @@ let mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, {setCurrentAssetAll})(ChartContainer);
+export default connect(mapStateToProps, {setCurrentAssetAll, unsubscribeOnAssetData})(ChartContainer);
