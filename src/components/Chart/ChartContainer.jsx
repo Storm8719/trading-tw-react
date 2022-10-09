@@ -3,11 +3,12 @@ import Chart from "./Chart";
 import {connect} from "react-redux";
 import {setCurrentAssetAll} from "../../redux/assets-reducer";
 import {unsubscribeOnAssetData} from "../../redux/chart-reducer";
+import {ChartCandlestick} from "./ChartCandlestick";
 
 class ChartContainer extends React.Component{
 
     render() {
-        return <Chart {...this.props} />
+        return <ChartCandlestick {...this.props} />
     }
 }
 
