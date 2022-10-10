@@ -1,7 +1,7 @@
 import React from "react";
 import Assets from "./Assets";
 import {connect} from "react-redux";
-import {setCurrentAssetAll, subscribeAcceptData} from "../../redux/assets-reducer";
+import {initialyzeAssetsList} from "../../redux/assets-reducer";
 
 class AssetsContainer extends React.Component{
     render() {
@@ -16,4 +16,4 @@ let mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, {setCurrentAssetAll, subscribeAcceptData})(AssetsContainer);
+export default connect(mapStateToProps, {initialyzeAssetsList})(AssetsContainer);

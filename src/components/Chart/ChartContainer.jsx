@@ -1,7 +1,6 @@
 import React from "react";
 import Chart from "./Chart";
 import {connect} from "react-redux";
-import {setCurrentAssetAll} from "../../redux/assets-reducer";
 import {unsubscribeOnAssetData} from "../../redux/chart-reducer";
 import {ChartCandlestick} from "./ChartCandlestick";
 
@@ -20,4 +19,4 @@ let mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, {setCurrentAssetAll, unsubscribeOnAssetData})(ChartContainer);
+export default connect(mapStateToProps, {unsubscribeOnAssetData})(ChartContainer);
