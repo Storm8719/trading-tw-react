@@ -15,5 +15,8 @@ export const quotesApi = {
                 currency:currency,
                 symbol:symbol
             }})
+    },
+    getCryptoAssetsList(){
+        return instance.get(`api/get-crypto-assets-list`)
     }
 }
