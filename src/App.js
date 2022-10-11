@@ -1,16 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
-import AssetsContainer from "./components/Assest/AssetsContainer";
 import React from "react";
-import ChartContainer from "./components/Chart/ChartContainer";
+import {Route, Routes} from "react-router-dom";
+import Crypto from "./components/Crypto/Crypto";
+import Investments from "./components/Investments/Investments";
+import LinksNav from "./components/LinksNav";
+import Home from "./components/Home/Home";
 
 function App() {
   return (
     <div className="app-container">
-      {/*<header className="App-header">*/}
-        <AssetsContainer/>
-        <ChartContainer />
-      {/*</header>*/}
+        <LinksNav />
+        <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/crypto" element={<Crypto />} />
+            <Route exact path="/investments" element={<Investments />} />
+        </Routes>
     </div>
   );
 }
