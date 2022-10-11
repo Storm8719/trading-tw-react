@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { createChart, ColorType } from 'lightweight-charts';
-import WebsocketAPI from "../../api/ws";
-import {quotesApi} from "../../api/api";
+import WebsocketAPI from "../../../api/ws";
+import {quotesApi} from "../../../api/api";
 
 
 export const ChartCandlestick = (props) => {

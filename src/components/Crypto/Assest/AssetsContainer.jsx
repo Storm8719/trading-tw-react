@@ -1,7 +1,7 @@
 import React from "react";
 import Assets from "./Assets";
 import {connect} from "react-redux";
-import {initialyzeAssetsList, setCurrentAssetId} from "../../redux/assets-reducer";
+import {initialyzeAssetsList, setCurrentAssetId} from "../../../redux/assets-reducer";
 
 class AssetsContainer extends React.Component{
     render() {

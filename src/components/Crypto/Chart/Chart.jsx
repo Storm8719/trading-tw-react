@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { createChart, ColorType } from 'lightweight-charts';
-import WebsocketAPI from "../../api/ws";
-import {unsubscribeAcceptData} from "../../redux/assets-reducer";
-import {unsubscribeOnAssetData} from "../../redux/chart-reducer";
+import WebsocketAPI from "../../../api/ws";
+import {unsubscribeAcceptData} from "../../../redux/assets-reducer";
+import {unsubscribeOnAssetData} from "../../../redux/chart-reducer";
 
 
 export const Chart = (props) => {
