@@ -10,10 +10,10 @@ const instance = axios.create({
 });
 
 export const quotesApi = {
-    getQuotes(currency = "USD", symbol = "BTC"){
+    getQuotes(currency = "USD", assetId = 1){
         return instance.post(`api`, {action:'getQuotesForAsset', data:{
                 currency:currency,
-                symbol:symbol
+                assetId:assetId
             }})
     },
     getCryptoAssetsList(){

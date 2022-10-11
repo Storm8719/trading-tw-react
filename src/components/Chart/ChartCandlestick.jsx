@@ -45,8 +45,8 @@ export const ChartCandlestick = (props) => {
             //     props.setCurrentAssetAll(currentAssetId);
             //     setState({initialized:true});
             // }
-            quotesApi.getQuotes().then((dataEl) => {
-                newSeries.setData(dataEl.data);
+            quotesApi.getQuotes('USD', currentAssetId).then((chartData) => {
+                newSeries.setData(chartData.data);
             })
 
 

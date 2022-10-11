@@ -1,5 +1,3 @@
-import WebsocketAPI from "../api/ws";
-import {setCurrentChartData} from "./chart-reducer";
 import {quotesApi} from "../api/api";
 
 const SET_CURRENT_ASSET = 'ASSETS_REDUCER_SET_CURRENT_ASSET';
@@ -36,6 +34,7 @@ export const updateCurrentAssets = (assetsArr) => ({type: UPDATE_CURRENT_ASSETS,
 export const initialyzeAssetsList = () => async (dispatch) => {
     const assetsList = await quotesApi.getCryptoAssetsList();
     dispatch(updateCurrentAssets(assetsList.data));
+    dispatch(setCurrentAssetId(assetsList.data[0].id));
 }
 
 // export const setCurrentAssetAll = (assetId) => async (dispatch) => {
