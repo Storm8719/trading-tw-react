@@ -1,7 +1,7 @@
 import './App.css';
 import React from "react";
 import {Route, Routes} from "react-router-dom";
-import Crypto from "./components/Crypto/Crypto";
+import Crypto from "./components/Сrypto/Crypto";
 import Investments from "./components/Investments/Investments";
 import LinksNav from "./components/LinksNav";
 import Home from "./components/Home/Home";

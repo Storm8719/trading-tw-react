@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import { createChart, ColorType } from 'lightweight-charts';
-import WebsocketAPI from "../../../api/ws";
+import { createChart } from 'lightweight-charts';
 import {quotesApi} from "../../../api/api";
 
 

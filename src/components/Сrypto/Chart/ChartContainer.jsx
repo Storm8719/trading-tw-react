@@ -1,5 +1,4 @@
 import React from "react";
-import Chart from "./Chart";
 import {connect} from "react-redux";
 import {unsubscribeOnAssetData} from "../../../redux/chart-reducer";
 import {ChartCandlestick} from "./ChartCandlestick";

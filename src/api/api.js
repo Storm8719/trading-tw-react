@@ -20,3 +20,10 @@ export const quotesApi = {
         return instance.get(`api/get-crypto-assets-list`)
     }
 }
+
+export const tinkoffApi = {
+    getAccountsList(){
+        console.log("1111");
+        return "1111";
+    }
+}
