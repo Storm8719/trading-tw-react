@@ -13,3 +13,16 @@
 .searchResultsItem:hover{
     background: rgba(255,255,255,0.1);
 }
+
+.searchInput{
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 18px;
+    vertical-align: middle;
+    border-style: none;
+    outline: none;
+    padding: 12px 14px;
+    background: rgba(57, 63, 84, 0.8);
+    max-width: 300px;
+    border-radius: 5px;
+}

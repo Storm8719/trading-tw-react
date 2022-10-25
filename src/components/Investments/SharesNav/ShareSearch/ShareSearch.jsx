@@ -4,13 +4,11 @@ import s from "./ShareSearch.module.css";
 
 const ShareSearch = (props) => {
 
-
     const {shares, setCurrentInstrument} = props;
 
     const [resultsVisible, setResultsVisibility] = useState(false);
 
     const [input, setInput] = useState("");
-
 
     const fuse = new Fuse(shares, {
         keys: ["ticker", "name"],
@@ -21,28 +19,32 @@ const ShareSearch = (props) => {
 
 
     return <div>
-        <input type="text" placeholder="Search..."
-               onChange={(e) => setInput(e.target.value)}
-               onFocus={() => {
-                   setResultsVisibility(true)
-               }}
-               onBlur={() => {
-                   setTimeout(() => setResultsVisibility(false), 100)
-               }}
-        />
+        <div className={s.inputBox}>
+            <input type="text" placeholder="Search..." className={s.searchInput}
+                   onChange={(e) => setInput(e.target.value)}
+                   onFocus={() => {
+                       setResultsVisibility(true)
+                   }}
+                   onBlur={() => {
+                       setResultsVisibility(false)
+                   }}
+            />
+        </div>
+
 
         {resultsVisible ?
             <div className={s.searchResultsBox}>
-
                 {results.map((result) => {
                     if (result.score < 0.4) return (
-                        <div className={s.searchResultsItem} key={result.item.figi} onClick={() => setCurrentInstrument(result.item.figi)}>
+                        <div className={s.searchResultsItem} key={result.item.figi}
+                             onMouseDown={() => setCurrentInstrument(result.item.figi)}>
                             {result.item.name} ({result.item.ticker})
                         </div>
                     )
                 })}
-
-            </div> : null}
+            </div>
+            : null
+        }
 
 
     </div>
