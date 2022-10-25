@@ -2,13 +2,15 @@ import {tinkoffApi} from "../api/api";
 
 const SET_CURRENT_INSTRUMENT = 'INVEST_REDUCER_SET_CURRENT_INSTRUMENT';
 const SET_SHARES = 'INVEST_REDUCER_SET_SHARES';
+const SET_SECTORS = 'INVEST_REDUCER_SET_SECTORS';
 
 let initialState = {
     currentInstrumentFigi: null,
     content: [
         // {id: 1, from: 'BTC', to:"USD"}
     ],
-    shares:[]
+    shares:[],
+    sectors:[],
 };
 
 const investmentsReducer = (state = initialState, action) => {
@@ -23,6 +25,11 @@ const investmentsReducer = (state = initialState, action) => {
                 ...state,
                 shares: action.shares
             }
+        case SET_SECTORS:
+            return {
+                ...state,
+                sectors: [...action.sectors]
+            }
         default:
             return state;
     }
@@ -31,6 +38,7 @@ const investmentsReducer = (state = initialState, action) => {
 // export const updateCurrentAssets = (assetsArr) => ({type: UPDATE_CURRENT_ASSETS, assets:assetsArr});
 export const setCurrentInstrument = (instrumentFigi) => ({type: SET_CURRENT_INSTRUMENT, instrumentFigi:instrumentFigi});
 export const setShares = (shares) => ({type:SET_SHARES, shares});
+export const setSectors = (sectors) => ({type:SET_SECTORS, sectors});
 
 export const getAccountsList = () => async (dispatch) => {
     const accountsList = tinkoffApi.getAccountsList();
@@ -40,6 +48,9 @@ export const getAccountsList = () => async (dispatch) => {
 
 export const initializeShares = () => async (dispatch) => {
     const shares = await tinkoffApi.getShares();
+    const sectors = [];
+    shares.forEach(value => sectors.indexOf(value.sector) === -1 ? sectors.push(value.sector) : null);
+    dispatch(setSectors(sectors));
     dispatch(setShares(shares));
     dispatch(setCurrentInstrument(shares[0].figi));
 
