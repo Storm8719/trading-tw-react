@@ -1,31 +1,50 @@
 import {tinkoffApi} from "../api/api";
 
-const SET_CURRENT_ASSET = 'ASSETS_REDUCER_SET_CURRENT_ASSET';
+const SET_CURRENT_INSTRUMENT = 'INVEST_REDUCER_SET_CURRENT_INSTRUMENT';
+const SET_SHARES = 'INVEST_REDUCER_SET_SHARES';
 
 let initialState = {
+    currentInstrumentFigi: null,
     content: [
         // {id: 1, from: 'BTC', to:"USD"}
     ],
+    shares:[]
 };
 
 const investmentsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_CURRENT_ASSET:
+        case SET_CURRENT_INSTRUMENT:
             return {
                 ...state,
-                currentAssetId: action.assetId
+                currentInstrumentFigi: action.instrumentFigi
             };
+        case SET_SHARES:
+            return {
+                ...state,
+                shares: action.shares
+            }
         default:
             return state;
     }
 }
 
 // export const updateCurrentAssets = (assetsArr) => ({type: UPDATE_CURRENT_ASSETS, assets:assetsArr});
+export const setCurrentInstrument = (instrumentFigi) => ({type: SET_CURRENT_INSTRUMENT, instrumentFigi:instrumentFigi});
+export const setShares = (shares) => ({type:SET_SHARES, shares});
 
 export const getAccountsList = () => async (dispatch) => {
     const accountsList = tinkoffApi.getAccountsList();
     console.dir(accountsList);
     // return accountsList;
+}
+
+export const initializeShares = () => async (dispatch) => {
+    const shares = await tinkoffApi.getShares();
+    dispatch(setShares(shares));
+    dispatch(setCurrentInstrument(shares[0].figi));
+
+    console.log('Shares:');
+    console.log(shares);
 }
 
 // export const initialyzeAssetsList = () => async (dispatch) => {
