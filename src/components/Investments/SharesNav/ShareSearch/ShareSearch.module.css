@@ -1,9 +1,12 @@
 .searchResultsBox{
     display: block;
     position: absolute;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     max-height: 50vh;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.9);
+    width: 100%;
+    max-width: 300px;
 }
 
 .searchResultsItem{
@@ -23,6 +26,8 @@
     outline: none;
     padding: 12px 14px;
     background: rgba(57, 63, 84, 0.8);
+    width: 100%;
     max-width: 300px;
     border-radius: 5px;
+    box-sizing:border-box;
 }
