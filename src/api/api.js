@@ -1,5 +1,7 @@
 import axios from "axios";
-
+import {fromTo} from "../helpers/helpers";
+import moment from "moment";
+import {sandbox_token} from "../config";
 
 const instance = axios.create({
     withCredentials: false,
@@ -13,7 +15,7 @@ const openApiSandbox = axios.create({
     withCredentials: false,
     baseURL: 'https://api-invest.tinkoff.ru/openapi/sandbox',
     headers:     {
-        "Authorization": "Bearer "
+        "Authorization": `Bearer ${sandbox_token}`
     }
 });
 
@@ -35,12 +37,13 @@ export const tinkoffApi = {
         return "1111";
     },
     async getShares(){
-        // const shares = await instance.get(`/api/getShares`);
         const shares = await openApiSandbox.get('/market/stocks');
         return shares.data.payload.instruments.filter(i => i.currency === "RUB");
     },
-    async getCandles(figi, timeOffset = '-1d', candleInterval = 1){
-        // const quotes = await instance.post('/api/getCandles', {figi, timeOffset, candleInterval});
-        // console.log(quotes);
+    async getCandles(figi, timeOffset = '-1d', candleInterval = "1min"){
+        const candles = await openApiSandbox.get('/market/candles', {params: {figi, ...fromTo(timeOffset), interval:candleInterval}});
+        return candles.data.payload.candles.map((e)=>{
+            return {time: + new Date(e.time), open: e.o, high: e.h, low: e.l, close: e.c}
+        });
     }
 }
