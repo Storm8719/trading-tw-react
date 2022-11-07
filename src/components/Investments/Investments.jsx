@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {getAccountsList} from "../../redux/investments-reducer";
 import SharesNav from "./SharesNav/SharesNav";
-import Chart from "./Chart/Chart";
+import ChartContainer from "./Chart/ChartContainer";
 import s from "./Investments.module.css"
 
 
@@ -11,7 +11,7 @@ const Investments = (props) =>{
 
     return <div className={s.main}>
         <SharesNav/>
-        <Chart/>
+        <ChartContainer/>
     </div>
 
 }
