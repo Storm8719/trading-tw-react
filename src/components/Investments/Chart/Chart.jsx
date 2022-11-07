@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { createChart } from 'lightweight-charts';
 import {quotesApi} from "../../../api/api";
+import s from './Chart.module.css'
 
 
 export const ChartCandlestick = (props) => {
@@ -24,18 +25,45 @@ export const ChartCandlestick = (props) => {
     useEffect(
         () => {
             const handleResize = () => {
-                chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+                chart.applyOptions({ width: chartContainerRef.current.clientWidth, height: (chartContainerRef.current.clientWidth /2 ) });
             };
 
             const chart = createChart(chartContainerRef.current, {
 
 
-                // width: chartContainerRef.current.clientWidth,
-                width: 600,
-                height: 400,
+                width: chartContainerRef.current.clientWidth,
+                // width: 600,
+                height: (chartContainerRef.current.clientWidth /2 ),
                 timeScale: {
                     timeVisible: true,
-                    secondsVisible: false,
+                    // secondsVisible: false,
+                },
+                layout: {
+                    backgroundColor: backgroundColor,
+                    textColor: textColor,
+                },
+                crosshair: {
+                    vertLine: {
+                        width: 5,
+                        color: 'rgba(224, 227, 235, 0.1)',
+                        style: 0,
+                    },
+                    horzLine: {
+                        visible: true,
+                        labelVisible: true,
+                        width: 5,
+                        color: 'rgba(224, 227, 235, 0.1)',
+                        style: 0,
+                    },
+
+                },
+                grid: {
+                    vertLines: {
+                        color: 'rgba(42, 46, 57, 0.2)',
+                    },
+                    horzLines: {
+                        color: 'rgba(42, 46, 57, 0.2)',
+                    },
                 },
             });
             console.log('redraw TV chart');
@@ -73,7 +101,7 @@ export const ChartCandlestick = (props) => {
     );
     console.log('redraw chart component');
     return (
-        <div>
+        <div className={s.chartBox}>
             <h1>assetID: {currentAssetId}</h1>
             <div
                 ref={chartContainerRef}

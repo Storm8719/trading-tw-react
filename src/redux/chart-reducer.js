@@ -6,7 +6,7 @@ let initialState = {
     candles:[
     ],
     visualOptions:{
-        backgroundColor: 'black',
+        backgroundColor: '#2A2E39',
         lineColor: '#ffffff',
         textColor: 'white',
         areaTopColor : '#ff2929',
