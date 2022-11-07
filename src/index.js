@@ -6,21 +6,21 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+// import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const client = new ApolloClient({
-    uri: "http://localhost:3020/graphql/",
-    cache: new InMemoryCache()
-});
+// const client = new ApolloClient({
+//     uri: "http://localhost:3020/graphql/",
+//     cache: new InMemoryCache()
+// });
 
 root.render(
     <BrowserRouter>
         <Provider store={store}>
-            <ApolloProvider client={client}>
+            {/*<ApolloProvider client={client}>*/}
                 <App/>
-            </ApolloProvider>
+            {/*</ApolloProvider>*/}
         </Provider>
     </BrowserRouter>
 );
