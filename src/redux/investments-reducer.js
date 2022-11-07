@@ -48,19 +48,8 @@ export const getAccountsList = () => async (dispatch) => {
 
 export const initializeShares = () => async (dispatch) => {
     const shares = await tinkoffApi.getShares();
-    const sectors = [];
-    shares.sort((a, b) => {
-        if(sectors.indexOf(a.sector) === -1){
-            sectors.push(a.sector)
-        }
-        return a.sector > b.sector ? 1 : -1
-    });
-    dispatch(setSectors(sectors));
     dispatch(setShares(shares));
     dispatch(setCurrentInstrument(shares[0].figi));
-
-    console.log('Shares:');
-    console.log(shares);
 }
 
 // export const initialyzeAssetsList = () => async (dispatch) => {
