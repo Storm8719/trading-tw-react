@@ -2,9 +2,9 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {initializeShares} from "../../../redux/investments-reducer";
 import ShareSearchContainer from "./ShareSearch/ShareSearchContainer";
+import s from "./SharesNav.module.css";
 
 const SharesNav = (props) => {
-
 
     useEffect(()=>{
         props.initializeShares();
@@ -12,17 +12,17 @@ const SharesNav = (props) => {
 
     if(!props.shares.length) return 'Loading...';
 
-    return <nav>
+    return <nav className={s.nav}>
 
         <ShareSearchContainer/>
 
-        {props.shares.map((share) => (
-            <div key={share.figi}>
-                <div>{share.name} ({share.ticker})</div>
-                <div>{share.sector}</div>
-                <br/>
-            </div>
-        ))}
+        <div className={s.sharesList}>
+            {props.shares.map((share) => (
+                <div key={share.figi} className={s.shareItem}>
+                    <div>{share.name} [{share.ticker}] </div>
+                </div>
+            ))}
+        </div>
     </nav>
 }
 

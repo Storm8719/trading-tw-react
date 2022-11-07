@@ -1,0 +1,23 @@
+.nav{
+    width:300px
+}
+
+.sharesList{
+    width: 100%;
+    height: calc(100vh - 99px);
+    overflow-y: auto;
+    border: solid #363c4e 1px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.shareItem{
+    padding: 11px 14px;
+    box-sizing: border-box;
+    border-bottom: solid 1px #363c4e;
+}
+
+.shareItem:hover{
+    background-color: #363c4e;
+    cursor: pointer;
+}
