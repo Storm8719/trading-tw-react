@@ -1,5 +1,5 @@
 import axios from "axios";
-import {fromTo} from "../helpers/helpers";
+import {convertOneCandleData, fromTo} from "../helpers/helpers";
 import moment from "moment";
 import {sandbox_token} from "../config";
 
@@ -43,7 +43,8 @@ export const tinkoffApi = {
     async getCandles(figi, timeOffset = '-1d', candleInterval = "1min"){
         const candles = await openApiSandbox.get('/market/candles', {params: {figi, ...fromTo(timeOffset), interval:candleInterval}});
         return candles.data.payload.candles.map((e)=>{
-            return {time: + new Date(e.time), open: e.o, high: e.h, low: e.l, close: e.c}
+            return convertOneCandleData(e);
         });
-    }
+    },
 }
+
