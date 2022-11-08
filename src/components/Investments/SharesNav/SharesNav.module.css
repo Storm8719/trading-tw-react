@@ -16,6 +16,9 @@
     box-sizing: border-box;
     border-bottom: solid 1px #363c4e;
 }
+.current{
+    background-color: #3c4255;
+}
 
 .shareItem:hover{
     background-color: #363c4e;

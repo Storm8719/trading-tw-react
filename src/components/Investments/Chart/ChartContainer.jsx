@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {connect} from "react-redux";
 import {unsubscribeOnAssetData} from "../../../redux/chart-reducer";
 import ChartCandlestick from "./Chart";
@@ -7,7 +7,8 @@ import ChartCandlestick from "./Chart";
 let mapStateToProps = (state) => ({
     candles:state.chart.candles,
     visualOptions: state.chart.visualOptions,
-    currentAssetId: state.assets.currentAssetId,
+    // currentInstrumentFigi: state.investments.currentInstrumentInfo.figi,
+    currentInstrumentInfo: state.investments.currentInstrumentInfo,
 });
 
 

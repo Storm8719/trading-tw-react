@@ -2,13 +2,14 @@ import React, {useEffect, useRef, useState} from 'react';
 import { createChart } from 'lightweight-charts';
 import {quotesApi} from "../../../api/api";
 import s from './Chart.module.css'
+// import WebsocketAPI from "../../../api/ws";
 
 
 export const ChartCandlestick = (props) => {
     console.log(props);
     const {
         candles,
-        currentAssetId,
+        currentInstrumentInfo,
         visualOptions: {
             backgroundColor = 'white',
             lineColor = '#2962FF',
@@ -28,6 +29,8 @@ export const ChartCandlestick = (props) => {
                 chart.applyOptions({ width: chartContainerRef.current.clientWidth, height: (chartContainerRef.current.clientWidth /2 ) });
             };
 
+            // const ws = new WebsocketAPI();
+
             const chart = createChart(chartContainerRef.current, {
 
 
@@ -44,14 +47,14 @@ export const ChartCandlestick = (props) => {
                 },
                 crosshair: {
                     vertLine: {
-                        width: 5,
+                        width: 3,
                         color: 'rgba(224, 227, 235, 0.1)',
                         style: 0,
                     },
                     horzLine: {
                         visible: true,
                         labelVisible: true,
-                        width: 5,
+                        width: 3,
                         color: 'rgba(224, 227, 235, 0.1)',
                         style: 0,
                     },
@@ -59,15 +62,15 @@ export const ChartCandlestick = (props) => {
                 },
                 grid: {
                     vertLines: {
-                        color: 'rgba(42, 46, 57, 0.2)',
+                        color: 'rgba(55, 61, 75, 0.2)',
                     },
                     horzLines: {
-                        color: 'rgba(42, 46, 57, 0.2)',
+                        color: 'rgba(55, 61, 75, 0.2)',
                     },
                 },
             });
             console.log('redraw TV chart');
-            chart.timeScale().fitContent();
+            // chart.timeScale().fitContent(); //ITimeScaleApi
 
             const newSeries = chart.addCandlestickSeries();
             newSeries.setData(candles);
@@ -97,12 +100,12 @@ export const ChartCandlestick = (props) => {
                 chart.remove();
             };
         },
-        [currentAssetId, candles, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]
+        [ candles, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]
     );
     console.log('redraw chart component');
     return (
         <div className={s.chartBox}>
-            <h1>assetID: {currentAssetId}</h1>
+            <h2>{currentInstrumentInfo.name} [{currentInstrumentInfo.ticker}]</h2>
             <div
                 ref={chartContainerRef}
             />
