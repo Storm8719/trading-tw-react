@@ -1,11 +1,3 @@
-// export const fromTo = (offset, base = new Date()) =>  {
-//     // Не использую StringValue, т.к. с ним больше мороки: нужно импортить при использовании итд.
-//     const offsetMs = typeof offset === 'string' ? ms(offset as StringValue) : offset;
-//     const date = new Date(base.valueOf() + offsetMs);
-//     const [ from, to ] = offsetMs > 0 ? [ base, date ] : [ date, base ];
-//     return { from, to };
-// }
-
 import moment from "moment";
 
 export const fromTo = (offset) => {
@@ -13,4 +5,20 @@ export const fromTo = (offset) => {
     const offsetUnit = offset.replace(offsetAmount, "");
     const [from, to] = [moment().add(offsetAmount, offsetUnit).format('YYYY-MM-DDTHH:mmZ'), moment().format('YYYY-MM-DDTHH:mmZ')];
     return {from, to}
+}
+
+export const convertCandlesData = (candlesArr) => {
+    candlesArr.map((e) => {
+        return convertOneCandleData(e);
+    });
+}
+
+export const convertOneCandleData = (candle) => {
+    return {
+        time: Math.floor((+new Date(candle.time)) / 1000),
+        open: candle.o,
+        high: candle.h,
+        low: candle.l,
+        close: candle.c
+    }
 }
