@@ -2,11 +2,11 @@ import React, {useEffect, useRef, useState} from 'react';
 import { createChart } from 'lightweight-charts';
 import {quotesApi} from "../../../api/api";
 import s from './Chart.module.css'
-// import WebsocketAPI from "../../../api/ws";
+import WebsocketAPI from "../../../api/ws";
 
 
 export const ChartCandlestick = (props) => {
-    console.log(props);
+    // console.log(props);
     const {
         candles,
         currentInstrumentInfo,
@@ -74,28 +74,23 @@ export const ChartCandlestick = (props) => {
 
             const newSeries = chart.addCandlestickSeries();
             newSeries.setData(candles);
-            // newSeries.setData(data);
-            // const ws = new WebsocketAPI();
 
-            // if(!state.initialized){
-            //     props.setCurrentAssetAll(currentAssetId);
-            //     setState({initialized:true});
-            // }
-            // quotesApi.getQuotes('USD', currentAssetId).then((chartData) => {
-            //     newSeries.setData(chartData.data);
-            // })
-
-
-
-
-            // ws.subscribeOnAssetData(currentAssetId,(data) => {
-            //     newSeries.update(data);
-            // });
+            const ws = new WebsocketAPI();
+            ws.subscribeOnCandles(currentInstrumentInfo.figi, (candle)=>{
+                const newCandle = {
+                    time: Math.floor((+new Date(candle.time)) / 1000),
+                    open: candle.o,
+                    high: candle.h,
+                    low: candle.l,
+                    close: candle.c
+                }
+                // console.log(newCandle);
+                newSeries.update(newCandle);
+            });
 
             window.addEventListener('resize', handleResize);
-
             return () => {
-                // ws.unsubscribeOnAssetData(currentAssetId);
+                ws.unsubscribeFromCandles(currentInstrumentInfo.figi);
                 window.removeEventListener('resize', handleResize);
                 chart.remove();
             };
@@ -105,7 +100,7 @@ export const ChartCandlestick = (props) => {
     console.log('redraw chart component');
     return (
         <div className={s.chartBox}>
-            <h2>{currentInstrumentInfo.name} [{currentInstrumentInfo.ticker}]</h2>
+            <h2>{currentInstrumentInfo.name} [{currentInstrumentInfo.ticker}][{currentInstrumentInfo.figi}]</h2>
             <div
                 ref={chartContainerRef}
             />
