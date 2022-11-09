@@ -1,0 +1,30 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 50px;
+    border-bottom: solid #363c4e 1px;
+
+}
+
+.navItem{
+    display: block;
+    padding:0 0px;
+}
+.navItem:first-child{
+    padding-left: 0;
+}
+
+.navItem:last-child{
+    padding-right: 0;
+}
+
+.navLink{
+    display: block;
+    padding:15px 20px;
+    color: white;
+    text-decoration: none;
+}
+.navLink:hover{
+    background-color: #363c4e;
+}
