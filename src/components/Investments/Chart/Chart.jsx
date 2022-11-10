@@ -3,6 +3,7 @@ import { createChart } from 'lightweight-charts';
 import {quotesApi} from "../../../api/api";
 import s from './Chart.module.css'
 import WebsocketAPI from "../../../api/ws";
+import AddToFavoriteButton from "../AddToFavoriteButton/AddToFavoriteButton";
 
 
 export const ChartCandlestick = (props) => {
@@ -101,6 +102,7 @@ export const ChartCandlestick = (props) => {
     return (
         <div className={s.chartBox}>
             <h2>{currentInstrumentInfo.name} [{currentInstrumentInfo.ticker}][{currentInstrumentInfo.figi}]</h2>
+            <AddToFavoriteButton figi={currentInstrumentInfo.figi}/>
             <div
                 ref={chartContainerRef}
             />

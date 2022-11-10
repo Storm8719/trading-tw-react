@@ -18,7 +18,6 @@ const SharesNav = (props) => {
 
         <div className={s.sharesList}>
             {props.shares.map((share) => (
-                // {props.currentShareFigi === share.figi ? "active":""}
                     <div key={share.figi} className={props.currentShareFigi === share.figi ? s.current+" "+ s.shareItem : ""+ s.shareItem} onClick={() => {props.setCurrentInstrument(share.figi)}}>
                         <div>{share.name} [{share.ticker}]</div>
                     </div>
