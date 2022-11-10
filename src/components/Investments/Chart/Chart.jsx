@@ -1,14 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { createChart } from 'lightweight-charts';
-import {quotesApi} from "../../../api/api";
+import {quotesApi, tinkoffApi} from "../../../api/api";
 import s from './Chart.module.css'
 import WebsocketAPI from "../../../api/ws";
 import AddToFavoriteButton from "../ChartHeader/AddToFavoriteButton/AddToFavoriteButton";
 import ChartHeader from "../ChartHeader/ChartHeader";
+import {convertOneCandleData} from "../../../helpers/helpers";
 
 
 export const ChartCandlestick = (props) => {
-    // console.log(props);
+    console.log(props);
     const {
         candles,
         currentInstrumentInfo,
@@ -25,11 +26,13 @@ export const ChartCandlestick = (props) => {
     // const [state, setState] = useState({initialized:false});
 
 
+
     useEffect(
         () => {
             const handleResize = () => {
                 chart.applyOptions({ width: chartContainerRef.current.clientWidth, height: (chartContainerRef.current.clientWidth /2 ) });
             };
+            console.log('redraw TV chart');
 
             // const ws = new WebsocketAPI();
 
@@ -41,7 +44,16 @@ export const ChartCandlestick = (props) => {
                 height: (chartContainerRef.current.clientWidth /2 ),
                 timeScale: {
                     timeVisible: true,
+                    // fixLeftEdge: true,
+                    fixRightEdge: true,
+                    rightBarStaysOnScroll: true
                     // secondsVisible: false,
+                },
+                handleScale:{
+                    // kineticScroll:{
+                    //     mouse: false
+                    // },
+                    // mouseWheel:false,
                 },
                 layout: {
                     backgroundColor: backgroundColor,
@@ -71,23 +83,54 @@ export const ChartCandlestick = (props) => {
                     },
                 },
             });
-            console.log('redraw TV chart');
+
             // chart.timeScale().fitContent(); //ITimeScaleApi
 
-            const newSeries = chart.addCandlestickSeries();
+            function myVisibleLogicalRangeChangeHandler(newVisibleLogicalRange) {
+                if (newVisibleLogicalRange === null) {
+                    // handle null
+                }
+                console.log(newVisibleLogicalRange)
+
+                // handle new logical range
+            }
+
+            chart.timeScale().subscribeVisibleLogicalRangeChange(myVisibleLogicalRangeChangeHandler);
+
+            let newSeries = chart.addCandlestickSeries();
+
+            // chart.timeScale().timeToCoordinate()
+
+            console.log(candles)
             newSeries.setData(candles);
+
+            if(currentInstrumentInfo.figi){
+
+                setTimeout(async ()=>{
+
+                    const candles2 = await tinkoffApi.getCandles("BBG004730JJ5", '-1d', '1min', 1668016020);
+
+                    chart.removeSeries(newSeries);
+                    const newSeries2 = chart.addCandlestickSeries();
+                    newSeries2.setData(candles2);
+
+                },3000);
+
+            }
+
+
+            // setTimeout()
 
             const ws = new WebsocketAPI();
             ws.subscribeOnCandles(currentInstrumentInfo.figi, (candle)=>{
-                const newCandle = {
+                // console.log(candle);
+                newSeries.update({
                     time: Math.floor((+new Date(candle.time)) / 1000),
                     open: candle.o,
                     high: candle.h,
                     low: candle.l,
                     close: candle.c
-                }
-                // console.log(newCandle);
-                newSeries.update(newCandle);
+                });
             });
 
             window.addEventListener('resize', handleResize);
@@ -99,6 +142,8 @@ export const ChartCandlestick = (props) => {
         },
         [ candles, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]
     );
+
+
     console.log('redraw chart component');
     return (
         <div className={s.chartBox}>
@@ -106,7 +151,7 @@ export const ChartCandlestick = (props) => {
             <div
                 ref={chartContainerRef}
             />
-            <button onClick={props.unsubscribeOnAssetData}>Unsubscribe</button>
+            {/*<button onClick={props.unsubscribeOnAssetData}>Unsubscribe</button>*/}
         </div>
     );
 };

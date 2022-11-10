@@ -40,8 +40,9 @@ export const tinkoffApi = {
         const shares = await openApiSandbox.get('/market/stocks');
         return shares.data.payload.instruments.filter(i => i.currency === "RUB");
     },
-    async getCandles(figi, timeOffset = '-1d', candleInterval = "1min"){
-        const candles = await openApiSandbox.get('/market/candles', {params: {figi, ...fromTo(timeOffset), interval:candleInterval}});
+    async getCandles(figi, timeOffset = '-1d', candleInterval = "1min", endTimeTimestamp = null){
+        endTimeTimestamp = endTimeTimestamp ? endTimeTimestamp * 1000 : +(new Date());
+        const candles = await openApiSandbox.get('/market/candles', {params: {figi, ...fromTo(timeOffset, endTimeTimestamp), interval:candleInterval}});
         return candles.data.payload.candles.map((e)=>{
             return convertOneCandleData(e);
         });

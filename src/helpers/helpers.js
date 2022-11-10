@@ -1,9 +1,9 @@
 import moment from "moment";
 
-export const fromTo = (offset) => {
+export const fromTo = (offset, endTimeJsTimestamp = +(new Date())) => {
     const offsetAmount = offset.match(/-\d+/)[0];
     const offsetUnit = offset.replace(offsetAmount, "");
-    const [from, to] = [moment().add(offsetAmount, offsetUnit).format('YYYY-MM-DDTHH:mmZ'), moment().format('YYYY-MM-DDTHH:mmZ')];
+    const [from, to] = [moment(endTimeJsTimestamp).add(offsetAmount, offsetUnit).format('YYYY-MM-DDTHH:mmZ'), moment(endTimeJsTimestamp).format('YYYY-MM-DDTHH:mmZ')];
     return {from, to}
 }
 
