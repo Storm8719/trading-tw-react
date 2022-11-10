@@ -1,0 +1,9 @@
+.star{
+    font-size: 22px;
+    color: #fff;
+    display:flex;
+    align-items:flex-end;
+}
+.star:hover{
+    color: #d5d5d5;
+}
