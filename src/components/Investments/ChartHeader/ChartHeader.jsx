@@ -7,7 +7,7 @@ const ChartHeader = (props) => {
 
 
     const {currentInstrumentInfo} = props;
-    if(!currentInstrumentInfo.name) return null;
+    if(!currentInstrumentInfo.name) return <div className={s.headerMain}> </div>;
     return <div className={s.headerMain}>
         <span className={s.headerMainText}> <b>{currentInstrumentInfo.name}</b> [{currentInstrumentInfo.ticker}][{currentInstrumentInfo.figi}] </span>
         <AddToFavoriteButton figi={currentInstrumentInfo.figi}/>

@@ -10,7 +10,7 @@ const SharesNav = (props) => {
         props.initializeShares();
     }, [])
 
-    if (!props.shares.length) return 'Loading...';
+    if (!props.shares.length) return <div style={{ width: '300px' }}>Loading...</div>;
 
     return <nav className={s.nav}>
 
