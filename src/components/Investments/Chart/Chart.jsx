@@ -108,9 +108,9 @@ export const ChartCandlestick = (props) => {
 
                 setTimeout(async ()=>{
 
-                    const candles2 = await tinkoffApi.getCandles("BBG004730JJ5", '-1d', '1min', 1668016020);
+                    const candles2 = await tinkoffApi.getCandles(currentInstrumentInfo.figi, '-1d', '1min', 1668016020);
 
-                    chart.removeSeries(newSeries);
+                    // chart.removeSeries(newSeries);
                     const newSeries2 = chart.addCandlestickSeries();
                     newSeries2.setData(candles2);
 
@@ -157,3 +157,5 @@ export const ChartCandlestick = (props) => {
 };
 
 export default ChartCandlestick;
+
+// curl -X GET --location "https://invest-public-api.tinkoff.ru/history-data?figi=BBG004S681W1&year=2022" -H "Authorization: Bearer t.giSbN5Eso7LX-kXl5UZ3mDwiJqvZo07-EPajDr4FWM_-7upNnfyqBF33jZaqVr-pTWiufwqDEUlx181IQ-xJFg"
