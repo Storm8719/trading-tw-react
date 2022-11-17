@@ -1,11 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { createChart } from 'lightweight-charts';
-import {quotesApi, tinkoffApi} from "../../../api/api";
 import s from './Chart.module.css'
 import WebsocketAPI from "../../../api/ws";
-import AddToFavoriteButton from "../ChartHeader/AddToFavoriteButton/AddToFavoriteButton";
 import ChartHeader from "../ChartHeader/ChartHeader";
-import {convertOneCandleData} from "../../../helpers/helpers";
 
 
 export const ChartCandlestick = (props) => {
@@ -104,26 +101,27 @@ export const ChartCandlestick = (props) => {
             console.log(candles)
             newSeries.setData(candles);
 
-            if(currentInstrumentInfo.figi){
-
-                setTimeout(async ()=>{
-
-                    const candles2 = await tinkoffApi.getCandles(currentInstrumentInfo.figi, '-1d', '1min', 1668016020);
-
-                    // chart.removeSeries(newSeries);
-                    const newSeries2 = chart.addCandlestickSeries();
-                    newSeries2.setData(candles2);
-
-                },3000);
-
-            }
+            // if(currentInstrumentInfo.figi){
+            //
+            //     setTimeout(async ()=>{
+            //
+            //         const candles2 = await tinkoffApi.getCandles(currentInstrumentInfo.figi, '-1d', '1min', 1668016020);
+            //
+            //         // chart.removeSeries(newSeries);
+            //         const newSeries2 = chart.addCandlestickSeries();
+            //         newSeries2.setData(candles2);
+            //
+            //     },3000);
+            //
+            // }
 
 
             // setTimeout()
 
             const ws = new WebsocketAPI();
             ws.subscribeOnCandles(currentInstrumentInfo.figi, (candle)=>{
-                // console.log(candle);
+                console.log(candle);
+                
                 newSeries.update({
                     time: Math.floor((+new Date(candle.time)) / 1000),
                     open: candle.o,
@@ -132,6 +130,7 @@ export const ChartCandlestick = (props) => {
                     close: candle.c
                 });
             });
+
 
             window.addEventListener('resize', handleResize);
             return () => {

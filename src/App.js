@@ -5,6 +5,7 @@ import Crypto from "./components/Сrypto/Crypto";
 import Investments from "./components/Investments/Investments";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
+import OrderBook from "./components/Investments/Orderbook/Orderbook";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/crypto" element={<Crypto />} />
             <Route exact path="/investments" element={<Investments />} />
+            <Route exact path="/orderbook" element={<OrderBook />} />
         </Routes>
     </div>
   );
