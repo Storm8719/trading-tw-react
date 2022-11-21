@@ -1,5 +1,6 @@
 :root{
-    --main-bg-color: brown;
+    --order-line-height: 20px;
+    --progress-line-margin: -20px;
 }
 
 .orderLine{
@@ -30,18 +31,18 @@
 
 .progressBarBoxBids{
     text-align: end;
-    height: 20px;
+    height: var(--order-line-height);
     margin-bottom: -20px;
 }
 
 .progressBarBoxAsks{
     text-align: left;
-    height: 20px;
-    margin-bottom: -20px;
+    height: var(--order-line-height);
+    margin-bottom: var(--progress-line-margin);
 }
 .progressBar{
     display: inline-block;
-    height: 20px;
+    height: var(--order-line-height);
 }
 
 .progressBarBoxBids .progressBar{
