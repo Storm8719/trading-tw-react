@@ -51,3 +51,8 @@
 .progressBarBoxAsks .progressBar{
     background-color: rgb(255 0 0 / 50%);
 }
+
+.orderContainer{
+    display: flex;
+    width: 100%;
+}

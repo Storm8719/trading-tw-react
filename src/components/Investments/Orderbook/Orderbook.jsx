@@ -100,7 +100,7 @@ const OrderBook = () => {
         </>
 
     return (
-        <div className="order-container">
+        <div className={s.orderContainer}>
             <div className={s.ordersColumn}>
                 {orderBids(bids)}
             </div>
