@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
+import s from "./Orderbook.module.css";
 
 const OrderBook = () => {
     const [orders, setOrders] = useState([]);
@@ -21,7 +22,7 @@ const OrderBook = () => {
         };
         ws.onmessage = (event) => {
             const response = JSON.parse(event.data);
-            if(window.live){
+            if (window.live) {
                 setOrders(response.data);
             }
         };
@@ -34,80 +35,78 @@ const OrderBook = () => {
         };
     }, [currencyPair]);
 
-    const { bids, asks } = orders;
+    const {bids, asks} = orders;
 
     const addSumToResult = (arr) => {
-        arr.reduce(function(sum, current) {
+        arr.reduce(function (sum, current) {
             const r_sum = +sum + (+current[1]);
             current.push(r_sum);
             return r_sum;
         }, 0);
     }
 
-    if(typeof bids !== "undefined" && typeof asks !== "undefined"){
+    if (typeof bids !== "undefined" && typeof asks !== "undefined") {
         addSumToResult(bids);
         addSumToResult(asks);
     }
 
 
     const orderBids = (arr) =>
-        arr &&
-        arr.map((item, index) => (
-            <tr key={index}>
-                <td> {item[2].toFixed(2)} </td>
-                <td> {Math.round(item[0]*item[1])} </td>
-                <td> {item[1]} </td>
-                <td> {item[0]} </td>
-            </tr>
-        ));
+        <>
+            <div className={s.valuesBox}>
+                <div>Sum</div>
+                <div>Value ({currencyArray[1]})</div>
+                <div>Amount ({currencyArray[0]})</div>
+                <div>Bid</div>
+            </div>
+            {arr &&
+            arr.map((item, index) => (
+                <div key={index} className={s.orderLine}>
+                    <div className={s.progressBarBoxBids}>
+                        <div className={s.progressBar} style={{width: ((item[2] * 90) / arr.at(-1)[2]) + "%"}}> </div>
+                    </div>
+                    <div className={s.valuesBox}>
+                        <div> {item[2].toFixed(2)} </div>
+                        <div> {Math.round(item[0] * item[1])} </div>
+                        <div> {item[1]} </div>
+                        <div> {item[0]} </div>
+                    </div>
+                </div>
+            ))}
+        </>
 
     const orderAsks = (arr) =>
-        arr &&
-        arr.map((item, index) => (
-            <tr key={index}>
-                <td> {item[0]} </td>
-                <td> {item[1]} </td>
-                <td> {Math.round(item[0]*item[1])} </td>
-                <td> {item[2].toFixed(2)} </td>
-            </tr>
-        ));
-    const orderBidsHead = (title) => (
-        <thead>
-        <tr>
-            <th colSpan="2">{title}</th>
-        </tr>
-        <tr>
-            <th>Sum</th>
-            <th>Value ({currencyArray[1]})</th>
-            <th>Amount ({currencyArray[0]})</th>
-            <th>Bid</th>
-        </tr>
-        </thead>
-    );
-    const orderAsksHead = (title) => (
-        <thead>
-        <tr>
-            <th colSpan="2">{title}</th>
-        </tr>
-        <tr>
-            <th>Ask</th>
-            <th>Amount ({currencyArray[0]})</th>
-            <th>Value ({currencyArray[1]})</th>
-            <th>Sum</th>
-        </tr>
-        </thead>
-    );
+        <>
+            <div className={s.valuesBox}>
+                <div>Ask</div>
+                <div>Amount ({currencyArray[0]})</div>
+                <div>Value ({currencyArray[1]})</div>
+                <div>Sum</div>
+            </div>
+            {arr &&
+            arr.map((item, index) => (
+                <div key={index} className={s.orderLine}>
+                    <div className={s.progressBarBoxAsks}>
+                        <div className={s.progressBar} style={{width: ((item[2] * 90) / arr.at(-1)[2]) + "%"}}> </div>
+                    </div>
+                    <div className={s.valuesBox}>
+                        <div> {item[0]} </div>
+                        <div> {item[1]} </div>
+                        <div> {Math.round(item[0] * item[1])} </div>
+                        <div> {item[2].toFixed(2)} </div>
+                    </div>
+                </div>
+            ))}
+        </>
+
     return (
         <div className="order-container">
-            <table>
-                {orderBidsHead('Bids')}
-                <tbody>{orderBids(bids)}</tbody>
-            </table>
-
-            <table>
-                {orderAsksHead('Asks')}
-                <tbody>{orderAsks(asks)}</tbody>
-            </table>
+            <div className={s.ordersColumn}>
+                {orderBids(bids)}
+            </div>
+            <div className={s.ordersColumn}>
+                {orderAsks(asks)}
+            </div>
         </div>
     );
 };
