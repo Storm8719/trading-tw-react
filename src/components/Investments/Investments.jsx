@@ -4,7 +4,6 @@ import {getAccountsList} from "../../redux/investments-reducer";
 import SharesNav from "./SharesNav/SharesNav";
 import ChartContainer from "./Chart/ChartContainer";
 import s from "./Investments.module.css"
-import {App} from "./Chart/Chart-test";
 
 
 const Investments = (props) =>{
