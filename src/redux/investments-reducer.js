@@ -89,6 +89,7 @@ export const setCurrentInstrument = (figi) => async (dispatch) => {
     // dispatch(setCurrentChartData([]));
     const candles = await tinkoffApi.getCandles(figi);
     dispatch(setCurrentChartData(candles));
+    const previusCandles = await tinkoffApi.getCandlesFor3LastDays(figi);
 }
 
 

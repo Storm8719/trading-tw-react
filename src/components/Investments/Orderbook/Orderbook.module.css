@@ -32,7 +32,7 @@
 .progressBarBoxBids{
     text-align: end;
     height: var(--order-line-height);
-    margin-bottom: -20px;
+    margin-bottom: var(--progress-line-margin);
 }
 
 .progressBarBoxAsks{
