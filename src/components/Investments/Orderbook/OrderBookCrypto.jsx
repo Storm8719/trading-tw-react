@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import s from "./Orderbook.module.css";
 
-const OrderBook = () => {
+const OrderBookCrypto = () => {
     const [orders, setOrders] = useState([]);
     const currencyPair = 'btcusd';
 
@@ -111,4 +111,4 @@ const OrderBook = () => {
     );
 };
 
-export default OrderBook;
+export default OrderBookCrypto;
