@@ -3,7 +3,8 @@ class WebsocketAPI{
     wsAvailable = false;
     messagesQueue = [];
     subscribeEventListeners = {
-        candle:[]
+        candle:[],
+        orderbook:[],
     };
 
     constructor() {
@@ -59,6 +60,26 @@ class WebsocketAPI{
             return true;
         })
     }
+
+    subscribeOnOrderbook(figi, callbackForOrderbookReceive){
+        if(!figi) return;
+        this.send(`{"event": "orderbook:subscribe", "figi": "${figi}", "depth": 20}`);
+        this.subscribeEventListeners.orderbook.push({figi, callback:callbackForOrderbookReceive, unsubscribe:()=>{
+                this.send(`{"event": "orderbook:unsubscribe", "figi": "${figi}", "depth": 20}`);
+            }});
+    }
+
+    unsubscribeFromOrderbook(figi){
+        this.subscribeEventListeners.orderbook = this.subscribeEventListeners.orderbook.filter((listener) => {
+            if(listener.figi === figi){
+                listener.unsubscribe();
+                return false;
+            }
+            return true;
+        })
+    }
+
+
 
     routeMessageFromApi(message){
         const data = JSON.parse(message.data);
