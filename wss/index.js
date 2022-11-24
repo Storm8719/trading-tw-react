@@ -1,6 +1,7 @@
 import WebSocket, {WebSocketServer} from "ws";
 
 const wss = new WebSocketServer({ port: 3111 });
+console.log("Ws gateway started on port 3111");
 
 wss.on('connection', (ws) => {
     console.log("Client connected");
