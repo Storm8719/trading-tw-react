@@ -47,4 +47,37 @@ export const tinkoffApi = {
             return convertOneCandleData(e);
         });
     },
+    async getCandlesFor3LastDays(figi){//633.291015625 ms first , 503.857177734375 ms then
+        console.time('FirstWay');
+        return new Promise(function (resolve, reject) {
+
+            let i = 0;
+
+            const promises = [];
+
+            const getPreviousDay = (date = new Date()) => {
+                const previous = new Date(date.getTime());
+                previous.setDate(date.getDate() - 1);
+                promises.push(openApiSandbox.get('/market/candles', {params: {figi, ...fromTo('-1d', previous), interval:'1min'}}));
+                i++;
+                if (i >= 3) {
+                    return false;
+                }
+                getPreviousDay(previous);
+            }
+            getPreviousDay();
+
+            Promise.all(promises).then((results) => {
+                console.log('results given')
+                let candles = [];
+                results.reverse().forEach((candlesObj) => {
+                    candles = candles.concat(candlesObj.data.candles);
+                })
+                console.timeEnd('FirstWay');
+                resolve(candles);
+            }).catch((e) => {
+                reject(e)
+            })
+        });
+    }
 }
