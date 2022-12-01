@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import s from "./OrderBookInvestments.module.css";
 import {setOrderbookData, subscribeOnOrderbook, unsubscribeOnOrderbook} from "../../../redux/investments-reducer";
 import {connect} from "react-redux";

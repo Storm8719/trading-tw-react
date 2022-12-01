@@ -1,6 +1,10 @@
-:root{
+
+
+.orderContainerCrypto{
     --order-line-height: 20px;
     --progress-line-margin: -20px;
+    display: flex;
+    width: 100%;
 }
 
 .orderLine{
@@ -10,10 +14,6 @@
 
 .orderBgLine{
     position: absolute;
-}
-
-.orderContainer{
-    display: flex;
 }
 
 .ordersColumn{
@@ -51,9 +51,4 @@
 
 .progressBarBoxAsks .progressBar{
     background-color: rgb(255 0 0 / 50%);
-}
-
-.orderContainer{
-    display: flex;
-    width: 100%;
 }

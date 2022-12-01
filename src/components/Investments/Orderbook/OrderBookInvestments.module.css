@@ -1,6 +1,10 @@
-:root{
-    --order-line-height: 20px;
-    --progress-line-margin: -20px;
+
+.orderContainer{
+    --order-line-height: 14px;
+    --progress-line-margin: -15px;
+    --orderbook-font-size: 12px;
+    display: flex;
+    width: 100%;
 }
 
 .orderLine{
@@ -10,10 +14,6 @@
 
 .orderBgLine{
     position: absolute;
-}
-
-.orderContainer{
-    display: flex;
 }
 
 .ordersColumn{
@@ -26,19 +26,23 @@
 }
 
 .valuesBox div{
-    width: 25%;
+    width: 33.3%;
+    font-size: var(--orderbook-font-size);
 }
 
 .progressBarBoxBids{
-    text-align: end;
     height: var(--order-line-height);
     margin-bottom: var(--progress-line-margin);
+    display: flex;
+    justify-content: flex-end;
 }
 
 .progressBarBoxAsks{
     text-align: left;
     height: var(--order-line-height);
     margin-bottom: var(--progress-line-margin);
+    display: flex;
+    justify-content: flex-start;
 }
 .progressBar{
     display: inline-block;
@@ -51,9 +55,4 @@
 
 .progressBarBoxAsks .progressBar{
     background-color: rgb(255 0 0 / 50%);
-}
-
-.orderContainer{
-    display: flex;
-    width: 100%;
 }

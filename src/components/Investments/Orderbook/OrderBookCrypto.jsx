@@ -100,7 +100,7 @@ const OrderBookCrypto = () => {
         </>
 
     return (
-        <div className={s.orderContainer}>
+        <div className={s.orderContainerCrypto}>
             <div className={s.ordersColumn}>
                 {orderBids(bids)}
             </div>
