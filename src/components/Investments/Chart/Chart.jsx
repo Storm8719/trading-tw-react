@@ -98,7 +98,7 @@ export const ChartCandlestick = (props) => {
 
             // chart.timeScale().timeToCoordinate()
 
-            console.log(candles)
+            // console.log(candles)
             newSeries.setData(candles);
 
             // if(currentInstrumentInfo.figi){
@@ -120,8 +120,7 @@ export const ChartCandlestick = (props) => {
 
             const ws = new WebsocketAPI();
             ws.subscribeOnCandles(currentInstrumentInfo.figi, (candle)=>{
-                console.log(candle);
-                
+                // console.log(candle);
                 newSeries.update({
                     time: Math.floor((+new Date(candle.time)) / 1000),
                     open: candle.o,
@@ -130,6 +129,10 @@ export const ChartCandlestick = (props) => {
                     close: candle.c
                 });
             });
+            // ws.subscribeOnOrderbook(currentInstrumentInfo.figi, (orderbook)=>{
+            //     console.log("Orderbook:");
+            //     console.log(orderbook);
+            // });
 
 
             window.addEventListener('resize', handleResize);

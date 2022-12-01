@@ -4,6 +4,7 @@ import {getAccountsList} from "../../redux/investments-reducer";
 import SharesNav from "./SharesNav/SharesNav";
 import ChartContainer from "./Chart/ChartContainer";
 import s from "./Investments.module.css"
+import OrderBookInvestments from "./Orderbook/OrderBookInvestments";
 
 
 const Investments = (props) =>{
@@ -11,7 +12,11 @@ const Investments = (props) =>{
 
     return <div className={s.main}>
         <SharesNav/>
-        <ChartContainer/>
+        <div className={s.sectionColumns}>
+            <ChartContainer/>
+            <OrderBookInvestments />
+        </div>
+
         {/*<div style={{display: "block", width:"600px", height:"300px"}}> <App/> </div>*/}
     </div>
 
