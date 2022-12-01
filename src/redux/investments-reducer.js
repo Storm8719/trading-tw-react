@@ -1,6 +1,7 @@
 import {tinkoffApi} from "../api/api";
 import {setCurrentChartData} from "./chart-reducer";
 import Cookies from 'universal-cookie';
+import WebsocketAPI from "../api/ws";
 
 const cookies = new Cookies();
 
@@ -9,6 +10,7 @@ const SET_SHARES = 'INVEST_REDUCER_SET_SHARES';
 const SET_SECTORS = 'INVEST_REDUCER_SET_SECTORS';
 const SET_FAVORITE_FIGI = 'INVEST_REDUCER_SET_FAVORITE_FIGI';
 const REMOVE_FAVORITE_FIGI = 'INVEST_REDUCER_REMOVE_FAVORITE_FIGI';
+const SET_ORDERBOOK_DATA = 'INVEST_REDUCER_SET_ORDERBOOK_DATA';
 
 let initialState = {
     currentInstrumentInfo: {
@@ -24,6 +26,7 @@ let initialState = {
     content: [
         // {id: 1, from: 'BTC', to:"USD"}
     ],
+    orderbook: null,
     shares:[],
     sectors:[],
     favoriteFigi: cookies.get('favoriteFigi')
@@ -60,6 +63,11 @@ const investmentsReducer = (state = initialState, action) => {
                 ...state,
                 favoriteFigi: null
             }
+        case SET_ORDERBOOK_DATA:
+            return {
+                ...state,
+                orderbook: action.data
+            }
         default:
             return state;
     }
@@ -71,6 +79,7 @@ export const setShares = (shares) => ({type:SET_SHARES, shares});
 export const setSectors = (sectors) => ({type:SET_SECTORS, sectors});
 export const setFavoriteFigi = (figi) => ({type:SET_FAVORITE_FIGI, figi});
 export const removeFavoriteFigi = () => ({type: REMOVE_FAVORITE_FIGI});
+export const setOrderbookData = (data) => ({type: SET_ORDERBOOK_DATA, data});
 
 export const getAccountsList = () => async (dispatch) => {
     const accountsList = tinkoffApi.getAccountsList();
@@ -90,6 +99,18 @@ export const setCurrentInstrument = (figi) => async (dispatch) => {
     const candles = await tinkoffApi.getCandles(figi);
     dispatch(setCurrentChartData(candles));
     // const previusCandles = await tinkoffApi.getCandlesFor3LastDays(figi);
+}
+
+const ws = new WebsocketAPI();
+
+export const subscribeOnOrderbook = (figi) => (dispatch) => {
+    ws.subscribeOnOrderbook(figi, (orderbook) => {
+        dispatch(setOrderbookData(orderbook));
+    });
+}
+
+export const unsubscribeOnOrderbook = (figi) => (dispatch) => {
+    ws.unsubscribeFromOrderbook(figi);
 }
 
 
