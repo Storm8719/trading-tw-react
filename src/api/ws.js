@@ -91,6 +91,14 @@ class WebsocketAPI{
                         listener.callback(data.payload);
                     }
                 });
+                break;
+            case "orderbook":
+                this.subscribeEventListeners.orderbook.map((listener) => {
+                    if(listener.figi === data.payload.figi){
+                        listener.callback(data.payload);
+                    }
+                });
+                break;
         }
     }
 
