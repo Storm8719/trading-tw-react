@@ -1,0 +1,59 @@
+:root{
+    --order-line-height: 20px;
+    --progress-line-margin: -20px;
+}
+
+.orderLine{
+    width:100%;
+    text-align: center;
+}
+
+.orderBgLine{
+    position: absolute;
+}
+
+.orderContainer{
+    display: flex;
+}
+
+.ordersColumn{
+    width: 50%;
+}
+
+.valuesBox{
+    display: flex;
+    text-align: center;
+}
+
+.valuesBox div{
+    width: 25%;
+}
+
+.progressBarBoxBids{
+    text-align: end;
+    height: var(--order-line-height);
+    margin-bottom: var(--progress-line-margin);
+}
+
+.progressBarBoxAsks{
+    text-align: left;
+    height: var(--order-line-height);
+    margin-bottom: var(--progress-line-margin);
+}
+.progressBar{
+    display: inline-block;
+    height: var(--order-line-height);
+}
+
+.progressBarBoxBids .progressBar{
+    background-color: rgb(4 169 4 / 50%);
+}
+
+.progressBarBoxAsks .progressBar{
+    background-color: rgb(255 0 0 / 50%);
+}
+
+.orderContainer{
+    display: flex;
+    width: 100%;
+}

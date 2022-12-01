@@ -87,7 +87,7 @@ export const ChartCandlestick = (props) => {
                 if (newVisibleLogicalRange === null) {
                     // handle null
                 }
-                console.log(newVisibleLogicalRange)
+                // console.log(newVisibleLogicalRange);
 
                 // handle new logical range
             }
