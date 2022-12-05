@@ -27,7 +27,7 @@ const OrderBookInvestments = (props) => {
     const orderBids = (arr, max) =>
         <>
             <div className={s.valuesBox}>
-                <div>Value </div>
+                {/*<div>Value </div>*/}
                 <div>Amount</div>
                 <div>Bid</div>
             </div>
@@ -38,7 +38,7 @@ const OrderBookInvestments = (props) => {
                         <div className={s.progressBar} style={{width: ((item[1] * 90) / max) + "%"}}> </div>
                     </div>
                     <div className={s.valuesBox}>
-                        <div> {Math.round(item[0] * item[1])} </div>
+                        {/*<div> </div>*/}
                         <div> {item[1]} </div>
                         <div> {item[0]} </div>
                     </div>
@@ -51,7 +51,7 @@ const OrderBookInvestments = (props) => {
             <div className={s.valuesBox}>
                 <div>Ask</div>
                 <div>Amount </div>
-                <div>Value </div>
+                {/*<div>Value </div>*/}
             </div>
             {arr &&
             arr.map((item, index) => (
@@ -62,7 +62,7 @@ const OrderBookInvestments = (props) => {
                     <div className={s.valuesBox}>
                         <div> {item[0]} </div>
                         <div> {item[1]} </div>
-                        <div> {Math.round(item[0] * item[1])} </div>
+                        {/*<div> </div>*/}
                     </div>
                 </div>
             ))}
