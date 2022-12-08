@@ -81,11 +81,6 @@ export const setFavoriteFigi = (figi) => ({type:SET_FAVORITE_FIGI, figi});
 export const removeFavoriteFigi = () => ({type: REMOVE_FAVORITE_FIGI});
 export const setOrderbookData = (data) => ({type: SET_ORDERBOOK_DATA, data});
 
-export const getAccountsList = () => async (dispatch) => {
-    const accountsList = tinkoffApi.getAccountsList();
-    console.dir(accountsList);
-}
-
 export const initializeShares = () => async (dispatch) => {
     const shares = await tinkoffApi.getShares();
     dispatch(setShares(shares));

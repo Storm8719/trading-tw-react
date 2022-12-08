@@ -32,9 +32,13 @@ export const quotesApi = {
 }
 
 export const tinkoffApi = {
-    getAccountsList(){
-        console.log("1111");
-        return "1111";
+    defaultAccountID: null,
+    async getAccountsList(){
+        const data = await openApiSandbox.get('/user/accounts');
+        if(data.data.payload.accounts.length === 1){
+            this.defaultAccountID = data.data.payload.accounts[0].brokerAccountId;
+        }
+        return data.data.payload.accounts;
     },
     async getShares(){
         const shares = await openApiSandbox.get('/market/stocks');
@@ -46,6 +50,11 @@ export const tinkoffApi = {
         return candles.data.payload.candles.map((e)=>{
             return convertOneCandleData(e);
         });
+    },
+    async createSandboxAccount(){
+        const account = await openApiSandbox.post('/sandbox/register', {"brokerAccountType": "Tinkoff"});
+        console.log(account.data.payload);
+        return account.data.payload;
     },
     async getCandlesFor3LastDays(figi){//633.291015625 ms first , 503.857177734375 ms then
         console.time('FirstWay');

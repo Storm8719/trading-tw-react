@@ -19,7 +19,7 @@ class WebsocketAPI{
         this._ws = new WebSocket('ws://localhost:3111');
         this._ws.onopen = () => {
             this.wsAvailable = true;
-            console.log("WS connection opened");
+            // console.log("WS connection opened");
             this.messagesQueue =  this.messagesQueue.filter((message) => {
                 this._ws.send(message);
                 return false;

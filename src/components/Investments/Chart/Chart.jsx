@@ -6,7 +6,7 @@ import ChartHeader from "../ChartHeader/ChartHeader";
 
 
 export const ChartCandlestick = (props) => {
-    console.log(props);
+    // console.log(props);
     const {
         candles,
         currentInstrumentInfo,
@@ -29,7 +29,7 @@ export const ChartCandlestick = (props) => {
             const handleResize = () => {
                 chart.applyOptions({ width: chartContainerRef.current.clientWidth, height: (chartContainerRef.current.clientWidth /2 ) });
             };
-            console.log('redraw TV chart');
+            // console.log('redraw TV chart');
 
             // const ws = new WebsocketAPI();
 
@@ -146,7 +146,7 @@ export const ChartCandlestick = (props) => {
     );
 
 
-    console.log('redraw chart component');
+    // console.log('redraw chart component');
     return (
         <div className={s.chartBox}>
             <ChartHeader />
