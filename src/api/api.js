@@ -61,6 +61,18 @@ export const tinkoffApi = {
         console.log(account.data.payload);
         return account.data.payload;
     },
+    async getPortfolio(accountId){
+        const portfolio = await openApiSandbox.post('/portfolio?brokerAccountId=${accountId}', {});
+        return portfolio.data.payload;
+    },
+    async setSandboxAccountBalance(accountId, currency = "RUB", balance = 100000){
+        const response = await openApiSandbox.post(`/sandbox/currencies/balance?brokerAccountId=${accountId}`, {currency, balance});
+        return  response.data.status === "Ok";
+    },
+    async createNewMarketOrder(accountId, figi ,lots, operation){
+        const resp = await openApiSandbox.post(`/orders/market-order?figi=${figi}&brokerAccountId=${accountId}`, {lots, operation});
+        return resp.data;
+    },
     async getCandlesFor3LastDays(figi){//633.291015625 ms first , 503.857177734375 ms then
         console.time('FirstWay');
         return new Promise(function (resolve, reject) {
