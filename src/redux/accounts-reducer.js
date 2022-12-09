@@ -34,11 +34,17 @@ export const setAccountsList = (accountsList) => ({type: SET_ACCOUNTS_LIST, acco
 export const initializeAccounts = () => async (dispatch) => {
     const accounts = await tinkoffApi.getAccountsList();
     dispatch(setAccountsList(accounts));
+    console.log("init accounts");
 }
 
 export const createSandboxAccount = () => async (dispatch) => {
     const newAccount = await tinkoffApi.createSandboxAccount();
     newAccount ? initializeAccounts() : console.error("account not created")
+}
+
+export const deleteSandboxAccount = (accountId) => async (dispatch) => {
+    await tinkoffApi.deleteSandboxAccount(accountId);
+    initializeAccounts();
 }
 
 export default accountsReducer;

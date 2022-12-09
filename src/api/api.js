@@ -33,13 +33,6 @@ export const quotesApi = {
 
 export const tinkoffApi = {
     defaultAccountID: null,
-    async getAccountsList(){
-        const data = await openApiSandbox.get('/user/accounts');
-        if(data.data.payload.accounts.length === 1){
-            this.defaultAccountID = data.data.payload.accounts[0].brokerAccountId;
-        }
-        return data.data.payload.accounts;
-    },
     async getShares(){
         const shares = await openApiSandbox.get('/market/stocks');
         return shares.data.payload.instruments.filter(i => i.currency === "RUB");
@@ -51,8 +44,20 @@ export const tinkoffApi = {
             return convertOneCandleData(e);
         });
     },
+    async getAccountsList(){
+        const data = await openApiSandbox.get('/user/accounts');
+        if(data.data.payload.accounts.length === 1){
+            this.defaultAccountID = data.data.payload.accounts[0].brokerAccountId;
+        }
+        return data.data.payload.accounts;
+    },
     async createSandboxAccount(){
         const account = await openApiSandbox.post('/sandbox/register', {"brokerAccountType": "Tinkoff"});
+        console.log(account.data.payload);
+        return account.data.payload;
+    },
+    async deleteSandboxAccount(accountId){
+        const account = await openApiSandbox.post('/sandbox/remove', {"brokerAccountId": accountId});
         console.log(account.data.payload);
         return account.data.payload;
     },
