@@ -1,6 +1,4 @@
 .box{
-    width: 800px;
-    height: 600px;
     background-color: darkcyan;
     overflow: hidden;
 }
@@ -12,7 +10,6 @@
     display: flex;
     flex-direction: row;
     height: 100%;
-    /* background-color: aquamarine; */
 }
 
 .flexRow > div{
@@ -20,16 +17,10 @@
     flex-direction: column;
 }
 
-/* .flexRow > div > div{
-    flex-grow: 1;
-}  */
-
 .flexColumn{
     display: flex;
     flex-direction: column;
-    /* background-color: rebeccapurple; */
     flex-grow: 1;
-    /* width: 100%; */
 }
 
 .flexColumn > div{
@@ -37,15 +28,10 @@
     flex-direction: row;
 }
 
-
-/* .flexColumn > div > div{
-    flex-grow: 1;
-}  */
-
-
 .el{
     display: flex;
 }
 .keySpan{
     position: absolute;
+    display: none;
 }
