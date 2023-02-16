@@ -6,6 +6,7 @@ import Investments from "./components/Investments/Investments";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import OrderBookCrypto from "./components/Investments/Orderbook/OrderBookCrypto";
+import Heatmap from './components/Heatmap/Heatmap';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route exact path="/crypto" element={<Crypto />} />
             <Route exact path="/investments" element={<Investments />} />
             <Route exact path="/orderbook" element={<OrderBookCrypto />} />
+            <Route exact path="/heatmap" element={<Heatmap />} />
         </Routes>
     </div>
   );

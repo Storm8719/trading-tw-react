@@ -16,6 +16,9 @@ const Navbar = (props) => {
         <div className={s.navItem}>
             <NavLink className={s.navLink} to="/orderbook">Orderbook</NavLink>
         </div>
+        <div className={s.navItem}>
+            <NavLink className={s.navLink} to="/heatmap">Heatmap</NavLink>
+        </div>
     </nav>
 }
 
