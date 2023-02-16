@@ -2,12 +2,13 @@ import React from "react";
 import dataObj from "./data";
 import s from "./Heatmap.module.css";
 import HeatmapItem from "./HeatmapItem";
+import ReactTooltip from "react-tooltip";
 
 
 const Heatmap = (props) => {
 
-    let b_width = props.width ? props.width : 1000;
-    let b_height = props.height ? props.height : 600;
+    let b_width = props.width ? props.width : 1500;
+    let b_height = props.height ? props.height : 1000;
     let box_S = b_width * b_height;
     let data = [];
     let askSum = 0;
@@ -92,9 +93,12 @@ const Heatmap = (props) => {
     }
 
 
-    return <div className={s.box} style={{width:b_width+"px", height:b_height+"px"}}>
+    return <>
+        <ReactTooltip clickable={true} />
+        <div className={s.box} style={{width:b_width+"px", height:b_height+"px"}}>
             {drawHeatmap(linesArr)}
-        </div>;
+        </div>
+    </>;
 }
 
 export default Heatmap;

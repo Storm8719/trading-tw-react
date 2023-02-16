@@ -30,8 +30,10 @@
 
 .el{
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .keySpan{
     position: absolute;
-    display: none;
+    /*display: none;*/
 }

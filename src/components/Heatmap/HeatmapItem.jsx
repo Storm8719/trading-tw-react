@@ -9,7 +9,7 @@ const HeatmapItem = (props) => {
         return '#'+Math.floor(Math.random()*16777215).toString(16);
     }
 
-    return <div className={s.el} style={{ background: getRandomBGColor(), ...itemStyle}}><span className={s.keySpan}>{name} {Math.round(el_S)}</span></div>
+    return <div data-tip={name} className={s.el} style={{ background: getRandomBGColor(), ...itemStyle}}><span style={{fontSize:(Math.round((el_S/4000)))+'px'}} className={s.keySpan} >{name}</span></div>
 }
 
 export default HeatmapItem;
