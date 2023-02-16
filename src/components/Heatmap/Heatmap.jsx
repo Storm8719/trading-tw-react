@@ -80,6 +80,8 @@ const Heatmap = () => {
     }
     
     const getJSXforLine = (line) => {
+
+        console.log(line)
         
         let percentsSumForLine = 0;
         let lineS = 0;
@@ -88,16 +90,19 @@ const Heatmap = () => {
             lineS += el.el_S;
         });
 
+        console.log('b_height ', b_height);
+        console.log('b_width ', b_width);
+        console.log('lineS',lineS);
 
         let ribLenght;
         let st;
         if(flag){
-            ribLenght = lineS/b_width;
-            b_height = b_height - ribLenght;
+            ribLenght = (lineS/b_width).toFixed(3);
+            b_height = (b_height - ribLenght).toFixed(3);
             st = {height:ribLenght+"px"};
         }else{
-            ribLenght = lineS/b_height;
-            b_width = b_width - ribLenght;
+            ribLenght = (lineS/b_height).toFixed(3);
+            b_width = (b_width - ribLenght).toFixed(3);
             st = {width:ribLenght+"px"};
         }
         // const ribLenght = flag ? () : (lineS/b_height);
@@ -105,12 +110,14 @@ const Heatmap = () => {
 
 
         // const st = flag ? {height:ribLenght+"px"} : {width:ribLenght+"px"};
+
+
         return <div style={st}>
             {line && line.map(el => {
+                console.log(percentsSumForLine);
                 const itemStyle = flag ? {width:((el.percentFromAll/percentsSumForLine)*100)+"%"} : {height:((el.percentFromAll/percentsSumForLine)*100)+"%"};
                 return <div className={s.el} style={{ background: getRandomBGColor(), ...itemStyle}}><span className={s.keySpan}>{el.key} {Math.round(el.el_S)}</span></div>
             }
-                
             )}
         </div>
     }
