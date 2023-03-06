@@ -62,7 +62,7 @@ export const tinkoffApi = {
         return account.data.payload;
     },
     async getPortfolio(accountId){
-        const portfolio = await openApiSandbox.post('/portfolio?brokerAccountId=${accountId}', {});
+        const portfolio = await openApiSandbox.get(`/portfolio?brokerAccountId=${accountId}`, {});
         return portfolio.data.payload;
     },
     async setSandboxAccountBalance(accountId, currency = "RUB", balance = 100000){

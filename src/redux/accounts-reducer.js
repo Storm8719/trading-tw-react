@@ -34,6 +34,8 @@ export const setAccountsList = (accountsList) => ({type: SET_ACCOUNTS_LIST, acco
 export const initializeAccounts = () => async (dispatch) => {
     const accounts = await tinkoffApi.getAccountsList();
     dispatch(setAccountsList(accounts));
+    const portfolio = await tinkoffApi.getPortfolio('SB44328381');
+    console.log(portfolio);
     console.log("init accounts");
 }
 
@@ -46,5 +48,6 @@ export const deleteSandboxAccount = (accountId) => async (dispatch) => {
     await tinkoffApi.deleteSandboxAccount(accountId);
     initializeAccounts();
 }
+
 
 export default accountsReducer;

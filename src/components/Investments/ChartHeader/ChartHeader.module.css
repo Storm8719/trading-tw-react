@@ -5,8 +5,33 @@
     justify-content: space-between;
     padding: 0 10px 0 10px;
     height: 26px;
+    margin:8px 0;
 }
 
 .headerMainText{
     font-size: 22px;
+}
+
+.displayTypeButtonsBox{
+    display: flex;
+    padding: 0 10px;
+}
+
+.displayTypeButtonsBox div{
+    margin:auto;
+    flex-grow: 1;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.displayTypeButtonsBox div.active{
+    background-color: #363d4f;
+}
+
+.displayTypeButtonsBox div:hover{
+    cursor: pointer;
+    background-color: #363d4f;
 }

@@ -11,6 +11,7 @@ const SET_SECTORS = 'INVEST_REDUCER_SET_SECTORS';
 const SET_FAVORITE_FIGI = 'INVEST_REDUCER_SET_FAVORITE_FIGI';
 const REMOVE_FAVORITE_FIGI = 'INVEST_REDUCER_REMOVE_FAVORITE_FIGI';
 const SET_ORDERBOOK_DATA = 'INVEST_REDUCER_SET_ORDERBOOK_DATA';
+const SET_ACTIVE_TAB = 'INVEST_REDUCER_SET_ACTIVE_TAB';
 
 let initialState = {
     currentInstrumentInfo: {
@@ -29,7 +30,8 @@ let initialState = {
     orderbook: null,
     shares:[],
     sectors:[],
-    favoriteFigi: cookies.get('favoriteFigi')
+    favoriteFigi: cookies.get('favoriteFigi'),
+    activeTab: 'chart',
 };
 
 const investmentsReducer = (state = initialState, action) => {
@@ -68,6 +70,11 @@ const investmentsReducer = (state = initialState, action) => {
                 ...state,
                 orderbook: action.data
             }
+        case SET_ACTIVE_TAB:
+            return {
+                ...state,
+                activeTab: action.tab
+            }
         default:
             return state;
     }
@@ -80,6 +87,7 @@ export const setSectors = (sectors) => ({type:SET_SECTORS, sectors});
 export const setFavoriteFigi = (figi) => ({type:SET_FAVORITE_FIGI, figi});
 export const removeFavoriteFigi = () => ({type: REMOVE_FAVORITE_FIGI});
 export const setOrderbookData = (data) => ({type: SET_ORDERBOOK_DATA, data});
+export const setActiveTab = (tab) => ({type:SET_ACTIVE_TAB, tab});
 
 export const initializeShares = () => async (dispatch) => {
     const shares = await tinkoffApi.getShares();

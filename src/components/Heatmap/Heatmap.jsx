@@ -7,8 +7,8 @@ import ReactTooltip from "react-tooltip";
 
 const Heatmap = (props) => {
 
-    let b_width = props.width ? props.width : 1500;
-    let b_height = props.height ? props.height : 1000;
+    let b_width = props.width ? props.width : 1000;
+    let b_height = props.height ? props.height : 600;
     let box_S = b_width * b_height;
     let data = [];
     let askSum = 0;
