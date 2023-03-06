@@ -50,9 +50,9 @@
 }
 
 .progressBarBoxBids .progressBar{
-    background-color: rgb(4 169 4 / 50%);
+    background-color: rgba(38, 165, 154, 0.6);
 }
 
 .progressBarBoxAsks .progressBar{
-    background-color: rgb(255 0 0 / 50%);
+    background-color: rgba(239, 83, 80, 0.6);
 }
