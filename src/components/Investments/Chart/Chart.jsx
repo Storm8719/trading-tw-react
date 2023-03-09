@@ -27,7 +27,7 @@ export const ChartCandlestick = (props) => {
     useEffect(
         () => {
             const handleResize = () => {
-                chart.applyOptions({ width: chartContainerRef.current.clientWidth, height: (chartContainerRef.current.clientWidth /3 ) });
+                chart.applyOptions({ width: chartContainerRef.current.clientWidth, height: (window.innerHeight /2 ) });
             };
             // console.log('redraw TV chart');
 
@@ -38,7 +38,7 @@ export const ChartCandlestick = (props) => {
 
                 width: chartContainerRef.current.clientWidth,
                 // width: 600,
-                height: (chartContainerRef.current.clientWidth /3 ),
+                height: (window.innerHeight /2),
                 timeScale: {
                     timeVisible: true,
                     // fixLeftEdge: true,
